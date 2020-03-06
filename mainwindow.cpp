@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "Strage.h"
+#include "QErrorMessage"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,5 +20,20 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::slotLoad()
+{
+
+   QString filePath= QFileDialog::getOpenFileName(this,tr("Open Image"),QDir::homePath(),tr("Image Files (*.png *.jpg *.bmp)"));
+    ui->Image->setPixmap((QPixmap(filePath)));
+    Path_To_Image=filePath;
+}
+
+void MainWindow::slotSave()
+{
+    QString file_name = QFileDialog::getSaveFileName(this, tr("Save File"),QDir::homePath(), tr("Images (*.png *.xpm *.jpg)"));
+    if(ui->Image->pixmap()->save(file_name,"PNG"))
+     QErrorMessage();
 }
 

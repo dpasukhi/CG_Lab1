@@ -23,6 +23,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    Strage.h \
     mainwindow.h
 
 FORMS += \
