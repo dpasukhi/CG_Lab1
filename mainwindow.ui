@@ -13,7 +13,55 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="Image">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>10</y>
+      <width>621</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QMenu {
+    background-color: #ABABAB; 
+    border: 1px solid black;
+}
+
+QMenu::item {
+
+    background-color: transparent;
+}
+
+QMenu::item:selected { 
+    background-color: #654321;
+}
+QMenuBar {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                                      stop:0 lightgray, stop:1 darkgray);
+    spacing: 3px; /* spacing between menu bar items */
+}
+
+QMenuBar::item {
+    padding: 1px 4px;
+    background: transparent;
+    border-radius: 4px;
+}
+
+QMenuBar::item:selected { /* when selected using mouse or keyboard */
+    background: #a8a8a8;
+}
+
+QMenuBar::item:pressed {
+    background: #888888;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
@@ -27,54 +75,54 @@
     <property name="title">
      <string>Файл</string>
     </property>
-    <addaction name="action"/>
-    <addaction name="action_2"/>
+    <addaction name="Load"/>
+    <addaction name="Save"/>
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
      <string>Фильтры</string>
     </property>
-    <addaction name="action_3"/>
-    <addaction name="action_4"/>
-    <addaction name="action_5"/>
-    <addaction name="action_6"/>
-    <addaction name="action_7"/>
+    <addaction name="Gray_World"/>
+    <addaction name="Stretching"/>
+    <addaction name="Glass"/>
+    <addaction name="Sharpness"/>
+    <addaction name="Median"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="action">
+  <action name="Load">
    <property name="text">
     <string>Загрузить</string>
    </property>
   </action>
-  <action name="action_2">
+  <action name="Save">
    <property name="text">
     <string>Сохранить</string>
    </property>
   </action>
-  <action name="action_3">
+  <action name="Gray_World">
    <property name="text">
     <string>Серый мир</string>
    </property>
   </action>
-  <action name="action_4">
+  <action name="Stretching">
    <property name="text">
     <string>Линейное растяжение гистограммы</string>
    </property>
   </action>
-  <action name="action_5">
+  <action name="Glass">
    <property name="text">
     <string>Эффект &quot;Стекла&quot;</string>
    </property>
   </action>
-  <action name="action_6">
+  <action name="Sharpness">
    <property name="text">
     <string>Резкость</string>
    </property>
   </action>
-  <action name="action_7">
+  <action name="Median">
    <property name="text">
     <string>Медианный фильтр</string>
    </property>
