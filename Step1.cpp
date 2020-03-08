@@ -61,3 +61,24 @@ inline QPixmap MedFilter(QLabel* Picture, const QString& path)
     return Pixmap;
 }
 
+
+
+inline QPixmap Glass(QLabel *Picture, const QString &path)
+{
+    QImage* im = new QImage(path);
+    QImage im2(*im);
+    unsigned int x=im->width();
+    unsigned int y=im->height();
+    QRgb pix;
+    QRandomGenerator gn;
+    for(unsigned int i=0;i<x;++i)
+        for(unsigned int j=0;j<y;++j)
+        {
+            im2.setPixel(i,j,im->pixel(i+(gn.generateDouble()*1.0)*10,j+(gn.generateDouble()*1.0)*10));
+        }
+
+    QPixmap Pixmap=QPixmap::fromImage(im2);
+    delete  im;
+    Picture->setPixmap(Pixmap);
+    return Pixmap;
+}

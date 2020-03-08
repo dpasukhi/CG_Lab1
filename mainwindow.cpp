@@ -57,3 +57,9 @@ void MainWindow::slotMedian()
         MedFilter(ui->Image,path);
 }
 
+void MainWindow::slotGlass()
+{
+    if(IsCreate)
+        Glass(ui->Image,path);
+}
+
