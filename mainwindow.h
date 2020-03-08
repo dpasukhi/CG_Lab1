@@ -28,6 +28,7 @@ public slots:
     void slotLoad();
     void slotSave();
     void slotGray_World();
+    void slotMedian();
 private:
     Ui::MainWindow *ui;
     QString path;

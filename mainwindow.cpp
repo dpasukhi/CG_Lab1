@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+    IsCreate=false;
     ui->setupUi(this);
     connect(ui->Save,SIGNAL(triggered()),SLOT(slotSave()));
     connect(ui->Load,SIGNAL(triggered()),SLOT(slotLoad()));
@@ -18,6 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Gray_World,SIGNAL(triggered()),SLOT(slotGray_World()));
     connect(ui->Sharpness,SIGNAL(triggered()),SLOT(slotSharpness()));
     connect(ui->Stretching,SIGNAL(triggered()),SLOT(slotStretching()));
+    connect(ui->Median,SIGNAL(triggered()),SLOT(slotMedian()));
 }
 
 MainWindow::~MainWindow()
@@ -47,5 +49,11 @@ void MainWindow::slotGray_World()
 {
     if(IsCreate)
         GrayWorld(ui->Image,path);
+}
+
+void MainWindow::slotMedian()
+{
+    if(IsCreate)
+        MedFilter(ui->Image,path);
 }
 
