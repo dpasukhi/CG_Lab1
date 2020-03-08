@@ -5,6 +5,10 @@
 #include <QDialog>
 #include <QTranslator>
 #include <QFileDialog>
+#include <QLabel>
+#include <QImage>
+#include <QRgb>
+#include <QColor>
 
 
 
@@ -23,8 +27,11 @@ public:
 public slots:
     void slotLoad();
     void slotSave();
+    void slotGray_World();
 private:
     Ui::MainWindow *ui;
+    QString path;
+    bool IsCreate;
 };
 
 #endif // MAINWINDOW_H

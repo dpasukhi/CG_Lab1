@@ -23,7 +23,9 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    Strage.h \
+    Step1.h \
+    Step2.h \
+    Step3.h \
     mainwindow.h
 
 FORMS += \

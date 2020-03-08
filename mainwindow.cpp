@@ -1,7 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Strage.h"
 #include "QErrorMessage"
+#include "Step1.cpp"
+#include "Step2.cpp"
+#include "Step3.cpp"
+
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -26,14 +29,23 @@ void MainWindow::slotLoad()
 {
 
    QString filePath= QFileDialog::getOpenFileName(this,tr("Open Image"),QDir::homePath(),tr("Image Files (*.png *.jpg *.bmp)"));
+   path=filePath;
     ui->Image->setPixmap((QPixmap(filePath)));
-    Path_To_Image=filePath;
+    IsCreate=true;
 }
 
 void MainWindow::slotSave()
 {
-    QString file_name = QFileDialog::getSaveFileName(this, tr("Save File"),QDir::homePath(), tr("Images (*.png *.xpm *.jpg)"));
-    if(ui->Image->pixmap()->save(file_name,"PNG"))
-     QErrorMessage();
+    if(IsCreate){
+        QString file_name = QFileDialog::getSaveFileName(this, tr("Save File"),QDir::homePath(), tr("Images (*.png *.xpm *.jpg)"));
+        if(ui->Image->pixmap()->save(file_name,"PNG"))
+            QErrorMessage();
+    }
+}
+
+void MainWindow::slotGray_World()
+{
+    if(IsCreate)
+        GrayWorld(ui->Image,path);
 }
 
