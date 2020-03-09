@@ -23,6 +23,9 @@
       <height>541</height>
      </rect>
     </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
     <property name="styleSheet">
      <string notr="true">QMenu {
     background-color: #ABABAB; 
@@ -60,6 +63,9 @@ QMenuBar::item:pressed {
     <property name="text">
      <string/>
     </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -87,6 +93,7 @@ QMenuBar::item:pressed {
     <addaction name="Glass"/>
     <addaction name="Sharpness"/>
     <addaction name="Median"/>
+    <addaction name="Motion_blur"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -125,6 +132,11 @@ QMenuBar::item:pressed {
   <action name="Median">
    <property name="text">
     <string>Медианный фильтр</string>
+   </property>
+  </action>
+  <action name="Motion_blur">
+   <property name="text">
+    <string>Размытие</string>
    </property>
   </action>
  </widget>

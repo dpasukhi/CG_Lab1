@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Sharpness,SIGNAL(triggered()),SLOT(slotSharpness()));
     connect(ui->Stretching,SIGNAL(triggered()),SLOT(slotStretching()));
     connect(ui->Median,SIGNAL(triggered()),SLOT(slotMedian()));
+    connect(ui->Motion_blur,SIGNAL(triggered()),SLOT(slotMotion_blur()));
 }
 
 MainWindow::~MainWindow()
@@ -61,5 +62,11 @@ void MainWindow::slotGlass()
 {
     if(IsCreate)
         Glass(ui->Image,path);
+}
+
+void MainWindow::slotMotion_blur()
+{
+    if(IsCreate)
+        Motion_blur(ui->Image,path);
 }
 

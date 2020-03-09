@@ -60,16 +60,12 @@ inline QPixmap MedFilter(QLabel* Picture, const QString& path)
     Picture->setPixmap(Pixmap);
     return Pixmap;
 }
-
-
-
 inline QPixmap Glass(QLabel *Picture, const QString &path)
 {
     QImage* im = new QImage(path);
     QImage im2(*im);
     unsigned int x=im->width();
     unsigned int y=im->height();
-    QRgb pix;
     QRandomGenerator gn;
     for(unsigned int i=0;i<x;++i)
         for(unsigned int j=0;j<y;++j)
@@ -78,6 +74,45 @@ inline QPixmap Glass(QLabel *Picture, const QString &path)
         }
 
     QPixmap Pixmap=QPixmap::fromImage(im2);
+    delete  im;
+    Picture->setPixmap(Pixmap);
+    return Pixmap;
+}
+inline QPixmap Motion_blur(QLabel *Picture, const QString &path)
+{
+    QImage* im = new QImage(path);
+    const int x=im->width();
+    const int y=im->height();
+    QRgb Red,Blue,Green;
+    QRgb pix;
+    double matrix[10][10];
+
+    for(int indM_X=0;indM_X<10;indM_X++)
+    for(int indM_Y=0;indM_Y<10;indM_Y++)
+    {
+        if(indM_X==indM_Y)
+            matrix[indM_X][indM_Y]=0.1;
+        else matrix[indM_X][indM_Y]=0;
+
+    }
+    int idX,idY;
+    for(int i=0;i<x;++i)
+        for(int j=0;j<y;++j)
+        {
+            Red=0;Green=0;Blue=0;
+            for(int l=-5;l<=5;++l)
+                for(int k=-5;k<=5;++k){
+                    idX=std::clamp(int(i+k),0,int(x-1));
+                    idY=std::clamp(int(j+l),0,int(y-1));
+                    pix=im->pixel(idX,idY);
+                    Red+=(qRed(pix)*matrix[k+4][l+4]);
+                    Green+=(qGreen(pix)*matrix[k+4][l+4]);
+                    Blue+=(qBlue(pix)*matrix[k+4][l+4]);
+                }
+            im->setPixel(i,j,qRgb(std::clamp(int(Red),0,255),std::clamp(int(Green),0,255),std::clamp(int(Blue),0,255)));
+        }
+
+    QPixmap Pixmap=QPixmap::fromImage(*im);
     delete  im;
     Picture->setPixmap(Pixmap);
     return Pixmap;
