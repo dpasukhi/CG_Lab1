@@ -21,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Stretching,SIGNAL(triggered()),SLOT(slotStretching()));
     connect(ui->Median,SIGNAL(triggered()),SLOT(slotMedian()));
     connect(ui->Motion_blur,SIGNAL(triggered()),SLOT(slotMotion_blur()));
+    connect(ui->Opening,SIGNAL(triggered()),SLOT(slotOpening()));
+    connect(ui->Closing,SIGNAL(triggered()),SLOT(slot_Closing()));
+    connect(ui->Erosion,SIGNAL(triggered()),SLOT(slot_Erosion()));
+    connect(ui->Dilation,SIGNAL(triggered()),SLOT(slot_Dilation()));
 }
 
 MainWindow::~MainWindow()
@@ -68,5 +72,29 @@ void MainWindow::slotMotion_blur()
 {
     if(IsCreate)
         Motion_blur(ui->Image,path);
+}
+
+void MainWindow::slot_Dilation()
+{
+//    if(IsCreate)
+//        Dilation()(ui->Image,path);
+}
+
+void MainWindow::slot_Erosion()
+{
+//    if(IsCreate)
+//        Erosion(ui->Image,path);
+}
+
+void MainWindow::slot_Opening()
+{
+//    if(IsCreate)
+//        Opening(ui->Image,path);
+}
+
+void MainWindow::slot_Closing()
+{
+//    if(IsCreate)
+//        Closing(ui->Image,path);
 }
 

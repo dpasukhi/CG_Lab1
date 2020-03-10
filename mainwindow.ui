@@ -94,6 +94,11 @@ QMenuBar::item:pressed {
     <addaction name="Sharpness"/>
     <addaction name="Median"/>
     <addaction name="Motion_blur"/>
+    <addaction name="Dilation"/>
+    <addaction name="Erosion"/>
+    <addaction name="separator"/>
+    <addaction name="Opening"/>
+    <addaction name="Closing"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -137,6 +142,26 @@ QMenuBar::item:pressed {
   <action name="Motion_blur">
    <property name="text">
     <string>Размытие</string>
+   </property>
+  </action>
+  <action name="Dilation">
+   <property name="text">
+    <string>Расширение</string>
+   </property>
+  </action>
+  <action name="Erosion">
+   <property name="text">
+    <string>Сужение</string>
+   </property>
+  </action>
+  <action name="Opening">
+   <property name="text">
+    <string>Открытие</string>
+   </property>
+  </action>
+  <action name="Closing">
+   <property name="text">
+    <string>Закрытие</string>
    </property>
   </action>
  </widget>

@@ -31,6 +31,10 @@ public slots:
     void slotMedian();
     void slotGlass();
     void slotMotion_blur();
+    void slot_Dilation();
+    void slot_Erosion();
+    void slot_Opening();
+    void slot_Closing();
 private:
     Ui::MainWindow *ui;
     QString path;
