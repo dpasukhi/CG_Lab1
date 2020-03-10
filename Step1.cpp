@@ -117,3 +117,13 @@ inline QPixmap Motion_blur(QLabel *Picture, const QString &path)
     Picture->setPixmap(Pixmap);
     return Pixmap;
 }
+
+QImage Convert_to_binary(const QString &path)
+{
+    QImage im(path);
+    QVector<QRgb> color(2);
+    color[0] = QColor(Qt::white).rgb();
+    color[1] = QColor(Qt::black).rgb();
+    im=im.convertToFormat(QImage::Format_Mono,color);
+    return im;
+}
