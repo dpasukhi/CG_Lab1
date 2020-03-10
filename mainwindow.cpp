@@ -76,8 +76,8 @@ void MainWindow::slotMotion_blur()
 
 void MainWindow::slot_Dilation()
 {
-//    if(IsCreate)
-//        Dilation()(ui->Image,path);
+    if(IsCreate)
+        Dilation(ui->Image,path);
 }
 
 void MainWindow::slot_Erosion()
