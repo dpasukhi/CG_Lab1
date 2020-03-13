@@ -1,11 +1,17 @@
 ﻿#include "Step3.h"
 
-inline QPixmap Dilation_Bin(QLabel *Picture, const QString &path)
+inline QPixmap Dilation_Bin(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
+    pb.show();
+    pb.setValue(0);
     QImage im(path);
     const int x=im.width();
     const int y=im.height();
+    double num=y*2/100;
     for(int i=0;i<y;i++)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(int j=0;j<x;j++)
         {
             if(QRgb(im.pixel(j,i)<qRgb(127,127,127)))
@@ -14,7 +20,7 @@ inline QPixmap Dilation_Bin(QLabel *Picture, const QString &path)
             }
             else im.setPixel(j,i,qRgb(255,255,255));
         }
-
+    }
     int mKernelRadius =1;
     QImage result(im);
 
@@ -33,7 +39,9 @@ inline QPixmap Dilation_Bin(QLabel *Picture, const QString &path)
     matrix [2][2]=false;
 
     int idX,idY;
-    for(int j=0;j<y;++j)
+    for(int j=0;j<y;++j){
+        if(j%static_cast<int>(num)==0&&j!=0)
+            pb.setValue(pb.value()+1);
         for(int i=0;i<x;++i)
         {
             int max=0;
@@ -51,17 +59,22 @@ inline QPixmap Dilation_Bin(QLabel *Picture, const QString &path)
             else
                 result.setPixel(i,j,qRgb(0,0,0));
         }
+    }
 
     QPixmap Pixmap=QPixmap::fromImage(result);
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
-inline QPixmap Dilation(QLabel *Picture, const QString &path)
+inline QPixmap Dilation(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
+    pb.show();
+    pb.setValue(0);
     QImage im(path);
     const int x=im.width();
     const int y=im.height();
-
+    double num=y/100;
     int mKernelRadius =1;
     QImage result(im);
 
@@ -80,7 +93,9 @@ inline QPixmap Dilation(QLabel *Picture, const QString &path)
     matrix [2][2]=false;
 
     int idX,idY;
-    for(int j=0;j<y;++j)
+    for(int j=0;j<y;++j){
+        if(j%static_cast<int>(num)==0&&j!=0)
+            pb.setValue(pb.value()+1);
         for(int i=0;i<x;++i)
         {
             QRgb max=qRgb(0,0,0);
@@ -95,17 +110,22 @@ inline QPixmap Dilation(QLabel *Picture, const QString &path)
                 }
             result.setPixel(i,j,max);
         }
+    }
 
     QPixmap Pixmap=QPixmap::fromImage(result);
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
-inline QPixmap Erosion(QLabel *Picture, const QString &path)
+inline QPixmap Erosion(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
+    pb.show();
+    pb.setValue(0);
     QImage im(path);
     const int x=im.width();
     const int y=im.height();
-
+    double num=y/100;
     int mKernelRadius =1;
     QImage result(im);
 
@@ -125,6 +145,9 @@ inline QPixmap Erosion(QLabel *Picture, const QString &path)
 
     int idX,idY;
     for(int j=0;j<y;++j)
+    {
+        if(j%static_cast<int>(num)==0&&j!=0)
+            pb.setValue(pb.value()+1);
         for(int i=0;i<x;++i)
         {
             QRgb max(qRgb(255,255,255));
@@ -139,17 +162,25 @@ inline QPixmap Erosion(QLabel *Picture, const QString &path)
                 }
             result.setPixel(i,j,max);
         }
+    }
 
     QPixmap Pixmap=QPixmap::fromImage(result);
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
-inline QPixmap Erosion_Bin(QLabel *Picture, const QString &path)
+inline QPixmap Erosion_Bin(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
+    pb.show();
+    pb.setValue(0);
     QImage im(path);
     const int x=im.width();
     const int y=im.height();
-    for(int i=0;i<y;i++)
+    double num=y*2/100;
+    for(int i=0;i<y;i++){
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(int j=0;j<x;j++)
         {
             if(QRgb(im.pixel(j,i)<qRgb(127,127,127)))
@@ -158,7 +189,7 @@ inline QPixmap Erosion_Bin(QLabel *Picture, const QString &path)
             }
             else im.setPixel(j,i,qRgb(255,255,255));
         }
-
+    }
     int mKernelRadius =1;
     QImage result(im);
 
@@ -177,7 +208,9 @@ inline QPixmap Erosion_Bin(QLabel *Picture, const QString &path)
     matrix [2][2]=false;
 
     int idX,idY;
-    for(int j=0;j<y;++j)
+    for(int j=0;j<y;++j){
+        if(j%static_cast<int>(num)==0&&j!=0)
+            pb.setValue(pb.value()+1);
         for(int i=0;i<x;++i)
         {
             int min=255;
@@ -195,9 +228,12 @@ inline QPixmap Erosion_Bin(QLabel *Picture, const QString &path)
             else
                 result.setPixel(i,j,qRgb(0,0,0));
         }
+    }
 
     QPixmap Pixmap=QPixmap::fromImage(result);
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
 
@@ -401,7 +437,7 @@ inline QPixmap Erosion_Bin(QPixmap px)
 
 QPixmap Closing(QLabel *Picture, const QString &path)
 {
-    QPixmap res=Dilation(Picture,path);
+    QPixmap res=Dilation(QPixmap(path));
     res=Erosion(res);
     Picture->setPixmap(res);
     return  res;
@@ -410,14 +446,14 @@ QPixmap Closing(QLabel *Picture, const QString &path)
 
 QPixmap Opening(QLabel *Picture, const QString &path)
 {
-    QPixmap res=Erosion(Picture,path);
+    QPixmap res=Erosion(QPixmap(path));
     res=Dilation(res);
     Picture->setPixmap(res);
     return  res;
 }
 QPixmap Closing_Bin(QLabel *Picture, const QString &path)
 {
-    QPixmap res=Dilation_Bin(Picture,path);
+    QPixmap res=Dilation_Bin(QPixmap(path));
     res=Erosion_Bin(res);
     Picture->setPixmap(res);
     return  res;
@@ -426,7 +462,7 @@ QPixmap Closing_Bin(QLabel *Picture, const QString &path)
 
 QPixmap Opening_Bin(QLabel *Picture, const QString &path)
 {
-    QPixmap res=Erosion_Bin(Picture,path);
+    QPixmap res=Erosion_Bin(QPixmap(path));
     res=Dilation_Bin(res);
     Picture->setPixmap(res);
     return  res;

@@ -83,25 +83,25 @@ void MainWindow::slotMotion_blur()
 void MainWindow::slot_Dilation()
 {
     if(IsCreate)
-        Dilation(ui->Image,path);
+        Dilation(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slot_Dilation_Bin()
 {
     if(IsCreate)
-        Dilation_Bin(ui->Image,path);
+        Dilation_Bin(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slot_Erosion_Bin()
 {
     if(IsCreate)
-        Erosion_Bin(ui->Image,path);
+        Erosion_Bin(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slot_Erosion()
 {
     if(IsCreate)
-        Erosion(ui->Image,path);
+        Erosion(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slot_Opening()
