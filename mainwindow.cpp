@@ -21,10 +21,14 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Stretching,SIGNAL(triggered()),SLOT(slotStretching()));
     connect(ui->Median,SIGNAL(triggered()),SLOT(slotMedian()));
     connect(ui->Motion_blur,SIGNAL(triggered()),SLOT(slotMotion_blur()));
-    connect(ui->Opening,SIGNAL(triggered()),SLOT(slotOpening()));
-    connect(ui->Closing,SIGNAL(triggered()),SLOT(slot_Closing()));
-    connect(ui->Erosion,SIGNAL(triggered()),SLOT(slot_Erosion()));
-    connect(ui->Dilation,SIGNAL(triggered()),SLOT(slot_Dilation()));
+    connect(ui->Opening_2,SIGNAL(triggered()),SLOT(slot_Opening()));
+    connect(ui->Opening_Bin,SIGNAL(triggered()),SLOT(slot_Opening_Bin()));
+    connect(ui->Closing_2,SIGNAL(triggered()),SLOT(slot_Closing()));
+    connect(ui->Closing_Bin,SIGNAL(triggered()),SLOT(slot_Closing_Bin()));
+    connect(ui->Erosion_2,SIGNAL(triggered()),SLOT(slot_Erosion()));
+    connect(ui->Dilation_2,SIGNAL(triggered()),SLOT(slot_Dilation()));
+    connect(ui->Erosion_Bin,SIGNAL(triggered()),SLOT(slot_Erosion_Bin()));
+    connect(ui->Dilation_Bin,SIGNAL(triggered()),SLOT(slot_Dilation_Bin()));
 }
 
 MainWindow::~MainWindow()
@@ -76,25 +80,49 @@ void MainWindow::slotMotion_blur()
 
 void MainWindow::slot_Dilation()
 {
-//    if(IsCreate)
-//        Dilation()(ui->Image,path);
+    if(IsCreate)
+        Dilation(ui->Image,path);
+}
+
+void MainWindow::slot_Dilation_Bin()
+{
+    if(IsCreate)
+        Dilation_Bin(ui->Image,path);
+}
+
+void MainWindow::slot_Erosion_Bin()
+{
+    if(IsCreate)
+        Erosion_Bin(ui->Image,path);
 }
 
 void MainWindow::slot_Erosion()
 {
-//    if(IsCreate)
-//        Erosion(ui->Image,path);
+    if(IsCreate)
+        Erosion(ui->Image,path);
 }
 
 void MainWindow::slot_Opening()
 {
-//    if(IsCreate)
-//        Opening(ui->Image,path);
+    if(IsCreate)
+        Opening(ui->Image,path);
 }
 
 void MainWindow::slot_Closing()
 {
-//    if(IsCreate)
-//        Closing(ui->Image,path);
+    if(IsCreate)
+        Closing(ui->Image,path);
+}
+
+void MainWindow::slot_Opening_Bin()
+{
+    if(IsCreate)
+        Opening_Bin(ui->Image,path);
+}
+
+void MainWindow::slot_Closing_Bin()
+{
+    if(IsCreate)
+        Closing_Bin(ui->Image,path);
 }
 

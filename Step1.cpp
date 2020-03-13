@@ -70,7 +70,7 @@ inline QPixmap Glass(QLabel *Picture, const QString &path)
     for(unsigned int i=0;i<x;++i)
         for(unsigned int j=0;j<y;++j)
         {
-            im2.setPixel(i,j,im->pixel(i+(gn.generateDouble()*1.0)*10,j+(gn.generateDouble()*1.0)*10));
+            im2.setPixel(i,j,im->pixel(std::clamp(int(i+(gn.generateDouble()*1.0)*10),0,int(x-1)),std::clamp(int(j+(gn.generateDouble()*1.0)*10),0,int(y-1))));
         }
 
     QPixmap Pixmap=QPixmap::fromImage(im2);

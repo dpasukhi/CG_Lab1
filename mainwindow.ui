@@ -88,17 +88,47 @@ QMenuBar::item:pressed {
     <property name="title">
      <string>Фильтры</string>
     </property>
+    <widget class="QMenu" name="menu_3">
+     <property name="title">
+      <string>Расширение</string>
+     </property>
+     <addaction name="separator"/>
+     <addaction name="separator"/>
+     <addaction name="Dilation_Bin"/>
+     <addaction name="Dilation_2"/>
+    </widget>
+    <widget class="QMenu" name="menu_4">
+     <property name="title">
+      <string>Сужение</string>
+     </property>
+     <addaction name="Erosion_Bin"/>
+     <addaction name="Erosion_2"/>
+    </widget>
+    <widget class="QMenu" name="menu_5">
+     <property name="title">
+      <string>Открытие</string>
+     </property>
+     <addaction name="Opening_Bin"/>
+     <addaction name="Opening_2"/>
+    </widget>
+    <widget class="QMenu" name="menu_6">
+     <property name="title">
+      <string>Закрытие</string>
+     </property>
+     <addaction name="Closing_Bin"/>
+     <addaction name="Closing_2"/>
+    </widget>
     <addaction name="Gray_World"/>
     <addaction name="Stretching"/>
     <addaction name="Glass"/>
     <addaction name="Sharpness"/>
     <addaction name="Median"/>
     <addaction name="Motion_blur"/>
-    <addaction name="Dilation"/>
-    <addaction name="Erosion"/>
+    <addaction name="menu_3"/>
+    <addaction name="menu_4"/>
     <addaction name="separator"/>
-    <addaction name="Opening"/>
-    <addaction name="Closing"/>
+    <addaction name="menu_5"/>
+    <addaction name="menu_6"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -144,24 +174,44 @@ QMenuBar::item:pressed {
     <string>Размытие</string>
    </property>
   </action>
-  <action name="Dilation">
+  <action name="Dilation_Bin">
    <property name="text">
-    <string>Расширение</string>
+    <string>Бинарное</string>
    </property>
   </action>
-  <action name="Erosion">
+  <action name="Dilation_2">
    <property name="text">
-    <string>Сужение</string>
+    <string>Цветное</string>
    </property>
   </action>
-  <action name="Opening">
+  <action name="Erosion_Bin">
    <property name="text">
-    <string>Открытие</string>
+    <string>Бинарное</string>
    </property>
   </action>
-  <action name="Closing">
+  <action name="Erosion_2">
    <property name="text">
-    <string>Закрытие</string>
+    <string>Цветное</string>
+   </property>
+  </action>
+  <action name="Opening_Bin">
+   <property name="text">
+    <string>Бинарное</string>
+   </property>
+  </action>
+  <action name="Opening_2">
+   <property name="text">
+    <string>Цветное</string>
+   </property>
+  </action>
+  <action name="Closing_Bin">
+   <property name="text">
+    <string>Банирное</string>
+   </property>
+  </action>
+  <action name="Closing_2">
+   <property name="text">
+    <string>Цветное</string>
    </property>
   </action>
  </widget>

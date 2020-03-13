@@ -32,9 +32,13 @@ public slots:
     void slotGlass();
     void slotMotion_blur();
     void slot_Dilation();
+    void slot_Dilation_Bin();
+    void slot_Erosion_Bin();
     void slot_Erosion();
     void slot_Opening();
     void slot_Closing();
+    void slot_Opening_Bin();
+    void slot_Closing_Bin();
 private:
     Ui::MainWindow *ui;
     QString path;
