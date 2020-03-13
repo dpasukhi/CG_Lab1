@@ -1,6 +1,8 @@
 #include "Step1.h"
-inline QPixmap GrayWorld(QLabel* Picture, const QString& path)
+inline QPixmap GrayWorld(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
+    pb.show();
+    pb.setValue(0);
     QImage* im = new QImage(path);
     unsigned int x=im->width();
     unsigned long int vRed=0,vGreen=0, vBlue=0,Avg=0;
@@ -8,7 +10,11 @@ inline QPixmap GrayWorld(QLabel* Picture, const QString& path)
     unsigned int y=im->height();
     QRgb pix;
 
+    double num=x*2/100;
     for(unsigned int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(unsigned int j=0;j<y;++j)
         {
             pix=im->pixel(i,j);
@@ -16,31 +22,47 @@ inline QPixmap GrayWorld(QLabel* Picture, const QString& path)
             vGreen+=qGreen(pix);
             vBlue+=qBlue(pix);
         }
+    }
     vRed=vRed/(x*y);
     vBlue=vBlue/(x*y);
     vGreen=vGreen/(x*y);
     Avg=(vBlue+vRed+vGreen)/3;
     for(unsigned int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(unsigned int j=0;j<y;++j)
         {
             pix=im->pixel(i,j);
             Red=(qRed(pix)*Avg)/vRed;
             Green=(qGreen(pix)*Avg)/vGreen;
+            pb.setValue(pb.value()+num);
             Blue=(qBlue(pix)*Avg)/vBlue;
+            if((i*j)%static_cast<int>(num))
+                pb.setValue(pb.value()+1);
             im->setPixel(i,j,qRgb(Red,Green,Blue));
         }
+    }
     QPixmap Pixmap=QPixmap::fromImage(*im);
     delete  im;
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
-inline QPixmap MedFilter(QLabel* Picture, const QString& path)
+inline QPixmap MedFilter(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
     QImage* im = new QImage(path);
+    pb.show();
+    pb.setValue(0);
     unsigned int x=im->width();
     unsigned int y=im->height();
     QRgb pix[9];
+    double num=x/100;
     for(unsigned int i=1;i<x-1;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(unsigned int j=1;j<y-1;++j)
         {
             pix[0]=im->pixel(i-1,j-1);
@@ -55,48 +77,64 @@ inline QPixmap MedFilter(QLabel* Picture, const QString& path)
             std::sort(pix,pix+9);
             im->setPixel(i,j,pix[4]);
         }
+    }
     QPixmap Pixmap=QPixmap::fromImage(*im);
     delete  im;
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
-inline QPixmap Glass(QLabel *Picture, const QString &path)
+inline QPixmap Glass(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
     QImage* im = new QImage(path);
     QImage im2(*im);
+    pb.show();
+    pb.setValue(0);
     unsigned int x=im->width();
     unsigned int y=im->height();
     QRandomGenerator gn;
+    double num=x/100;
     for(unsigned int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(unsigned int j=0;j<y;++j)
         {
             im2.setPixel(i,j,im->pixel(std::clamp(int(i+(gn.generateDouble()*1.0)*10),0,int(x-1)),std::clamp(int(j+(gn.generateDouble()*1.0)*10),0,int(y-1))));
         }
-
+    }
     QPixmap Pixmap=QPixmap::fromImage(im2);
     delete  im;
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
-inline QPixmap Motion_blur(QLabel *Picture, const QString &path)
+inline QPixmap Motion_blur(QLabel* Picture,QProgressBar& pb, const QString& path)
 {
     QImage* im = new QImage(path);
     const int x=im->width();
     const int y=im->height();
+    pb.show();
+    pb.setValue(0);
     QRgb Red,Blue,Green;
     QRgb pix;
     double matrix[10][10];
-
+    double num=x/100;
     for(int indM_X=0;indM_X<10;indM_X++)
-    for(int indM_Y=0;indM_Y<10;indM_Y++)
-    {
-        if(indM_X==indM_Y)
-            matrix[indM_X][indM_Y]=0.1;
-        else matrix[indM_X][indM_Y]=0;
+        for(int indM_Y=0;indM_Y<10;indM_Y++)
+        {
+            if(indM_X==indM_Y)
+                matrix[indM_X][indM_Y]=0.1;
+            else matrix[indM_X][indM_Y]=0;
 
-    }
+        }
     int idX,idY;
     for(int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
         for(int j=0;j<y;++j)
         {
             Red=0;Green=0;Blue=0;
@@ -111,10 +149,12 @@ inline QPixmap Motion_blur(QLabel *Picture, const QString &path)
                 }
             im->setPixel(i,j,qRgb(std::clamp(int(Red),0,255),std::clamp(int(Green),0,255),std::clamp(int(Blue),0,255)));
         }
-
+    }
     QPixmap Pixmap=QPixmap::fromImage(*im);
     delete  im;
     Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
     return Pixmap;
 }
 

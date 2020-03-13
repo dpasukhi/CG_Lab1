@@ -13,6 +13,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     IsCreate=false;
     ui->setupUi(this);
+    ui->progressBar->hide();
+    ui->progressBar->reset();
     connect(ui->Save,SIGNAL(triggered()),SLOT(slotSave()));
     connect(ui->Load,SIGNAL(triggered()),SLOT(slotLoad()));
     connect(ui->Glass,SIGNAL(triggered()),SLOT(slotGlass()));
@@ -57,25 +59,25 @@ void MainWindow::slotSave()
 void MainWindow::slotGray_World()
 {
     if(IsCreate)
-        GrayWorld(ui->Image,path);
+        GrayWorld(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slotMedian()
 {
     if(IsCreate)
-        MedFilter(ui->Image,path);
+        MedFilter(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slotGlass()
 {
     if(IsCreate)
-        Glass(ui->Image,path);
+        Glass(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slotMotion_blur()
 {
     if(IsCreate)
-        Motion_blur(ui->Image,path);
+        Motion_blur(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slot_Dilation()
