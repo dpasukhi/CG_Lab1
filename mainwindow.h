@@ -40,6 +40,7 @@ public slots:
     void slot_Opening_Bin();
         void slot_Gist();
     void slot_Closing_Bin();
+    void slot_Gray_Scale();
 private:
     Ui::MainWindow *ui;
     QString path;

@@ -17,14 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Step1.cpp \
-    Step2.cpp \
     Step3.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Step1.h \
-    Step2.h \
     Step3.h \
     mainwindow.h
 

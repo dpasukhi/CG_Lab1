@@ -142,6 +142,7 @@ QMenuBar::item:pressed {
     <addaction name="separator"/>
     <addaction name="menu_5"/>
     <addaction name="menu_6"/>
+    <addaction name="GrayScale"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -225,6 +226,11 @@ QMenuBar::item:pressed {
   <action name="Closing_2">
    <property name="text">
     <string>Цветное</string>
+   </property>
+  </action>
+  <action name="GrayScale">
+   <property name="text">
+    <string>Оттенки серого</string>
    </property>
   </action>
  </widget>

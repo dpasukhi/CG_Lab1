@@ -36,10 +36,7 @@ inline QPixmap GrayWorld(QLabel* Picture,QProgressBar& pb, const QString& path)
             pix=im->pixel(i,j);
             Red=std::clamp(static_cast<int>(qRed(pix)*Avg)/static_cast<int>(vRed),0,255);
             Green=std::clamp(static_cast<int>(qGreen(pix)*Avg)/static_cast<int>(vGreen),0,255);
-            pb.setValue(pb.value()+num);
             Blue=std::clamp(static_cast<int>(qBlue(pix)*Avg)/static_cast<int>(vBlue),0,255);
-            if((i*j)%static_cast<int>(num))
-                pb.setValue(pb.value()+1);
             im->setPixel(i,j,qRgb(Red,Green,Blue));
         }
     }
@@ -215,4 +212,50 @@ QPixmap Gisogram(QLabel *Picture, QProgressBar &pb, const QString &path)
     pb.setValue(100);
     pb.hide();
     return Pixmap;
+}
+
+
+QPixmap GrayScale(QLabel *Picture, QProgressBar &pb, const QString &path)
+{
+    pb.show();
+    pb.setValue(0);
+    QImage* im = new QImage(path);
+    int x=im->width();
+    int Red,Blue,Green;
+    int y=im->height();
+    QRgb pix;
+
+    double num=x/100;
+    for(int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
+        for(int j=0;j<y;++j)
+        {
+            pix=im->pixel(i,j);
+            Red=std::clamp(static_cast<int>(qRed(pix)),0,255);
+            Green=std::clamp(static_cast<int>(qGreen(pix)),0,255);
+            Blue=std::clamp(static_cast<int>(qBlue(pix)),0,255);
+            im->setPixel(i,j,qRgb(Red*0.299,Green*0.587,Blue*0.114));
+        }
+        QPixmap Pixmap=QPixmap::fromImage(*im);
+        Picture->setPixmap(Pixmap);
+        pb.setValue(100);
+        pb.hide();
+        return Pixmap;
+}
+}
+
+QPixmap Sepya(QLabel *Picture, QProgressBar &pb, const QString &path)
+{
+}
+
+QPixmap Point_Filter(QLabel *Picture, QProgressBar &pb, const QString &path)
+{
+
+}
+
+QPixmap Sharpness(QLabel *Picture, QProgressBar &pb, const QString &path)
+{
+
 }

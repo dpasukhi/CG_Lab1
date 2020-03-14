@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "QErrorMessage"
 #include "Step1.cpp"
-#include "Step2.cpp"
 #include "Step3.cpp"
 
 
@@ -31,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Dilation_2,SIGNAL(triggered()),SLOT(slot_Dilation()));
     connect(ui->Erosion_Bin,SIGNAL(triggered()),SLOT(slot_Erosion_Bin()));
     connect(ui->Dilation_Bin,SIGNAL(triggered()),SLOT(slot_Dilation_Bin()));
+   connect(ui->GrayScale,SIGNAL(triggered()),SLOT(slot_Gray_Scale()));
 }
 
 MainWindow::~MainWindow()
@@ -132,5 +132,11 @@ void MainWindow::slot_Closing_Bin()
 {
     if(IsCreate)
         Closing_Bin(ui->Image,path);
+}
+
+void MainWindow::slot_Gray_Scale()
+{
+    if(IsCreate)
+        GrayScale(ui->Image,*ui->progressBar,path);
 }
 
