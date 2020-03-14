@@ -199,10 +199,11 @@ QPixmap Gisogram(QLabel *Picture, QProgressBar &pb, const QString &path)
         for(int j=0;j<y;++j)
         {
             QColor pix=im.pixelColor(i,j);
-            //int ligt=static_cast<int>((static_cast<double>(pix.lightness()-min.lightness())/static_cast<double>(max.lightness()-min.lightness()))*255.);
-            int ligt=static_cast<int>((pix.lightness()/255.)*255);
+            int ligt=static_cast<int>((static_cast<double>(pix.lightness()-min.lightness())/static_cast<double>(max.lightness()-min.lightness()))*255.);
+            //int ligt=static_cast<int>((pix.lightness()/255.)*255);
             ligt=std::clamp(ligt,0,255);
             std::cout<<pix.lightness()<<" max"<<max.lightness()<<" min"<<min.lightness()<<"ligt"<<ligt<< " New ";
+            pix.setHsl(pix.hue(),pix.saturation(),ligt);
             result.setPixel(i,j,pix.rgba());
             std::cout<<pix.lightness()<<std::endl;
 
