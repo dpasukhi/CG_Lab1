@@ -18,7 +18,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Load,SIGNAL(triggered()),SLOT(slotLoad()));
     connect(ui->Glass,SIGNAL(triggered()),SLOT(slotGlass()));
     connect(ui->Gray_World,SIGNAL(triggered()),SLOT(slotGray_World()));
-    connect(ui->Sharpness,SIGNAL(triggered()),SLOT(slotSharpness()));
     connect(ui->Stretching,SIGNAL(triggered()),SLOT(slot_Gist()));
     connect(ui->Median,SIGNAL(triggered()),SLOT(slotMedian()));
     connect(ui->Motion_blur,SIGNAL(triggered()),SLOT(slotMotion_blur()));
@@ -30,7 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Dilation_2,SIGNAL(triggered()),SLOT(slot_Dilation()));
     connect(ui->Erosion_Bin,SIGNAL(triggered()),SLOT(slot_Erosion_Bin()));
     connect(ui->Dilation_Bin,SIGNAL(triggered()),SLOT(slot_Dilation_Bin()));
-   connect(ui->GrayScale,SIGNAL(triggered()),SLOT(slot_Gray_Scale()));
+    connect(ui->GrayScale,SIGNAL(triggered()),SLOT(slot_Gray_Scale()));
+    connect(ui->Sepya,SIGNAL(triggered()),SLOT(slot_Sepya()));
+    connect(ui->Lighter,SIGNAL(triggered()),SLOT(slot_Lighter()));
+    connect(ui->Sharpness_2,SIGNAL(triggered()),SLOT(slot_Sharpness()));
+    connect(ui->Sobel,SIGNAL(triggered()),SLOT(slot_Sobel()));
 }
 
 MainWindow::~MainWindow()
@@ -138,5 +141,29 @@ void MainWindow::slot_Gray_Scale()
 {
     if(IsCreate)
         GrayScale(ui->Image,*ui->progressBar,path);
+}
+
+void MainWindow::slot_Sepya()
+{
+    if(IsCreate)
+        Sepya(ui->Image,*ui->progressBar,path);
+}
+
+void MainWindow::slot_Lighter()
+{
+    if(IsCreate)
+        Lighter_Filter(ui->Image,*ui->progressBar,path);
+}
+
+void MainWindow::slot_Sharpness()
+{
+    if(IsCreate)
+        Sharpness(ui->Image,*ui->progressBar,path);
+}
+
+void MainWindow::slot_Sobel()
+{
+    if(IsCreate)
+        Sobel(ui->Image,*ui->progressBar,path);
 }
 

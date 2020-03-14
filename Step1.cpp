@@ -236,26 +236,206 @@ QPixmap GrayScale(QLabel *Picture, QProgressBar &pb, const QString &path)
             Red=std::clamp(static_cast<int>(qRed(pix)),0,255);
             Green=std::clamp(static_cast<int>(qGreen(pix)),0,255);
             Blue=std::clamp(static_cast<int>(qBlue(pix)),0,255);
-            im->setPixel(i,j,qRgb(Red*0.299,Green*0.587,Blue*0.114));
+            int intens=Red*0.299+Green*0.587+Blue*0.114;
+            intens=std::clamp(intens,0,255);
+            im->setPixel(i,j,qRgb(intens,intens,intens));
         }
-        QPixmap Pixmap=QPixmap::fromImage(*im);
-        Picture->setPixmap(Pixmap);
-        pb.setValue(100);
-        pb.hide();
-        return Pixmap;
-}
+
+    }        QPixmap Pixmap=QPixmap::fromImage(*im);
+    Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
+    return Pixmap;
 }
 
 QPixmap Sepya(QLabel *Picture, QProgressBar &pb, const QString &path)
 {
+    pb.show();
+    pb.setValue(0);
+    QImage* im = new QImage(path);
+    int x=im->width();
+    int Red,Blue,Green;
+    int y=im->height();
+    QRgb pix;
+
+    double num=x/100;
+    for(int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
+        for(int j=0;j<y;++j)
+        {
+            pix=im->pixel(i,j);
+            Red=std::clamp(static_cast<int>(qRed(pix)),0,255);
+            Green=std::clamp(static_cast<int>(qGreen(pix)),0,255);
+            Blue=std::clamp(static_cast<int>(qBlue(pix)),0,255);
+            int intens=Red*0.299+Green*0.587+Blue*0.114;
+            int k=15;
+            int rRed=std::clamp(intens+2*k,0,255);
+            int rGreen=std::clamp(static_cast<int>(intens+0.5*k),0,255);
+            int rBlue=std::clamp(intens-k,0,255);
+            intens=std::clamp(intens,0,255);
+            im->setPixel(i,j,qRgb(rRed,rGreen,rBlue));
+        }
+
+    }
+    QPixmap Pixmap=QPixmap::fromImage(*im);
+    Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
+    return Pixmap;
 }
 
-QPixmap Point_Filter(QLabel *Picture, QProgressBar &pb, const QString &path)
+QPixmap Lighter_Filter(QLabel *Picture, QProgressBar &pb, const QString &path)
 {
+    pb.show();
+    pb.setValue(0);
+    QImage* im = new QImage(path);
+    int x=im->width();
+    int Red,Blue,Green;
+    int y=im->height();
+    QRgb pix;
 
+    double num=x/100;
+    for(int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
+        for(int j=0;j<y;++j)
+        {
+            pix=im->pixel(i,j);
+            Red=std::clamp(static_cast<int>(qRed(pix)),0,255);
+            Green=std::clamp(static_cast<int>(qGreen(pix)),0,255);
+            Blue=std::clamp(static_cast<int>(qBlue(pix)),0,255);
+            int k=15;
+            int rRed=std::clamp(Red+k,0,255);
+            int rGreen=std::clamp(Green+k,0,255);
+            int rBlue=std::clamp(Blue +k,0,255);
+            im->setPixel(i,j,qRgb(rRed,rGreen,rBlue));
+        }
+
+    }
+    QPixmap Pixmap=QPixmap::fromImage(*im);
+    Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
+    return Pixmap;
 }
+
 
 QPixmap Sharpness(QLabel *Picture, QProgressBar &pb, const QString &path)
 {
+
+    QImage* im = new QImage(path);
+    QImage result(*im);
+    const int x=im->width();
+    const int y=im->height();
+    pb.show();
+    pb.setValue(0);
+    int Red,Blue,Green;
+    QRgb pix;
+    int matrix[3][3];
+    double num=x/100;
+    int mKernelRadius=1;
+    matrix[0][0]=0;
+    matrix[0][1]=-1;
+    matrix[0][2]=0;
+    matrix[1][0]=-1;
+    matrix[1][1]=5;
+    matrix[1][2]=-1;
+    matrix[2][0]=0;
+    matrix[2][1]=-1;
+    matrix[2][2]=0;
+    int idX=0,idY=0;
+    for(int j=0;j<y;++j)
+    {
+        if(j%static_cast<int>(num)==0&&j!=0)
+            pb.setValue(pb.value()+1);
+        for(int i=0;i<x;++i)
+        {
+            Red=Blue=Green=0;
+            for(int l=-mKernelRadius;l<=mKernelRadius;++l)
+                for(int k=-mKernelRadius;k<=mKernelRadius;++k)
+                {
+                    idX=std::clamp(int(i+k),0,int(x-1));
+                    idY=std::clamp(int(j+l),0,int(y-1));
+                    pix=im->pixel(idX,idY);
+                    Red+=(qRed(pix)*matrix[k+mKernelRadius][l+mKernelRadius]);
+                    Green+=(qGreen(pix)*matrix[k+mKernelRadius][l+mKernelRadius]);
+                    Blue+=(qBlue(pix)*matrix[k+mKernelRadius][l+mKernelRadius]);
+                }
+            Blue=std::clamp(Blue,0, 255);
+            Red=std::clamp(Red,0,255);
+            Green=std::clamp(Green,0,255);
+            result.setPixel(i,j,qRgb(Red,Green,Blue));
+        }
+    }
+    QPixmap Pixmap=QPixmap::fromImage(result);
+    delete  im;
+    Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
+    return Pixmap;
+}
+
+QPixmap Sobel(QLabel *Picture, QProgressBar &pb, const QString &path)
+{
+    int GX[3][3];
+    int GY[3][3];
+
+    GX[0][0] = -1; GX[0][1] = 0; GX[0][2] = 1;
+    GX[1][0] = -2; GX[1][1] = 0; GX[1][2] = 2;
+    GX[2][0] = -1; GX[2][1] = 0; GX[2][2] = 1;
+
+    GY[0][0] =  1; GY[0][1] = 2; GY[0][2] = 1;
+    GY[1][0] =  0; GY[1][1] = 0; GY[1][2] = 0;
+    GY[2][0] = -1; GY[2][1] = -2; GY[2][2] = -1;
+
+    QImage* im = new QImage(path);
+    QImage result(*im);
+    const int x=im->width();
+    const int y=im->height();
+    pb.show();
+    pb.setValue(0);
+    int RedX,BlueX,GreenX;
+    int RedY,BlueY,GreenY;
+    int RedS,BlueS,GreenS;
+    QRgb pix;
+    double num=x/100;
+    int mKernelRadius=1;
+    int idX=0,idY=0;
+    int sumX,sumY;
+    for(int j=0;j<y;++j)
+    {
+        if(j%static_cast<int>(num)==0&&j!=0)
+            pb.setValue(pb.value()+1);
+        for(int i=0;i<x;++i)
+        {
+            RedX=BlueX=GreenX=RedY=BlueY=GreenY=0;
+            for(int l=-mKernelRadius;l<=mKernelRadius;++l)
+                for(int k=-mKernelRadius;k<=mKernelRadius;++k)
+                {
+                    idX=std::clamp(int(i+k),0,int(x-1));
+                    idY=std::clamp(int(j+l),0,int(y-1));
+                    pix=im->pixel(idX,idY);
+                    RedX+=(qRed(pix)*GX[k+mKernelRadius][l+mKernelRadius]);
+                    GreenX+=(qGreen(pix)*GX[k+mKernelRadius][l+mKernelRadius]);
+                    BlueX+=(qBlue(pix)*GX[k+mKernelRadius][l+mKernelRadius]);
+                    RedY+=(qRed(pix)*GY[k+mKernelRadius][l+mKernelRadius]);
+                    GreenY+=(qGreen(pix)*GY[k+mKernelRadius][l+mKernelRadius]);
+                    BlueY+=(qBlue(pix)*GY[k+mKernelRadius][l+mKernelRadius]);
+                }
+            BlueS=std::clamp(BlueX+BlueY,0, 255);
+            RedS=std::clamp(RedX+RedY,0,255);
+            GreenS=std::clamp(GreenX+GreenY,0,255);
+            result.setPixel(i,j,qRgb(RedS,GreenS,BlueS));
+        }
+    }
+    QPixmap Pixmap=QPixmap::fromImage(result);
+    delete  im;
+    Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
+    return Pixmap;
 
 }

@@ -38,9 +38,13 @@ public slots:
     void slot_Opening();
     void slot_Closing();
     void slot_Opening_Bin();
-        void slot_Gist();
+    void slot_Gist();
     void slot_Closing_Bin();
     void slot_Gray_Scale();
+    void slot_Sepya();
+    void slot_Lighter();
+    void slot_Sharpness();
+    void slot_Sobel();
 private:
     Ui::MainWindow *ui;
     QString path;

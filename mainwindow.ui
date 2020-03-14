@@ -134,7 +134,6 @@ QMenuBar::item:pressed {
     <addaction name="Gray_World"/>
     <addaction name="Stretching"/>
     <addaction name="Glass"/>
-    <addaction name="Sharpness"/>
     <addaction name="Median"/>
     <addaction name="Motion_blur"/>
     <addaction name="menu_3"/>
@@ -143,6 +142,10 @@ QMenuBar::item:pressed {
     <addaction name="menu_5"/>
     <addaction name="menu_6"/>
     <addaction name="GrayScale"/>
+    <addaction name="Sepya"/>
+    <addaction name="Lighter"/>
+    <addaction name="Sobel"/>
+    <addaction name="Sharpness_2"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -231,6 +234,26 @@ QMenuBar::item:pressed {
   <action name="GrayScale">
    <property name="text">
     <string>Оттенки серого</string>
+   </property>
+  </action>
+  <action name="Sepya">
+   <property name="text">
+    <string>Сепия</string>
+   </property>
+  </action>
+  <action name="Lighter">
+   <property name="text">
+    <string>Повышение яркости</string>
+   </property>
+  </action>
+  <action name="Sobel">
+   <property name="text">
+    <string>Фильтр Собеля</string>
+   </property>
+  </action>
+  <action name="Sharpness_2">
+   <property name="text">
+    <string>Повышение резкости</string>
    </property>
   </action>
  </widget>
