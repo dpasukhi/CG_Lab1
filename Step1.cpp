@@ -4,18 +4,18 @@ inline QPixmap GrayWorld(QLabel* Picture,QProgressBar& pb, const QString& path)
     pb.show();
     pb.setValue(0);
     QImage* im = new QImage(path);
-    unsigned int x=im->width();
-    unsigned long int vRed=0,vGreen=0, vBlue=0,Avg=0;
-    unsigned int Red,Blue,Green;
-    unsigned int y=im->height();
+    int x=im->width();
+    long int vRed=0,vGreen=0, vBlue=0,Avg=0;
+    int Red,Blue,Green;
+    int y=im->height();
     QRgb pix;
 
     double num=x*2/100;
-    for(unsigned int i=0;i<x;++i)
+    for(int i=0;i<x;++i)
     {
         if(i%static_cast<int>(num)==0&&i!=0)
             pb.setValue(pb.value()+1);
-        for(unsigned int j=0;j<y;++j)
+        for(int j=0;j<y;++j)
         {
             pix=im->pixel(i,j);
             vRed+=qRed(pix);
@@ -23,21 +23,21 @@ inline QPixmap GrayWorld(QLabel* Picture,QProgressBar& pb, const QString& path)
             vBlue+=qBlue(pix);
         }
     }
-    vRed=vRed/(x*y);
-    vBlue=vBlue/(x*y);
-    vGreen=vGreen/(x*y);
-    Avg=(vBlue+vRed+vGreen)/3;
-    for(unsigned int i=0;i<x;++i)
+    vRed=static_cast<int>(vRed/static_cast<int>(x*y));
+    vBlue=static_cast<int>(vBlue/static_cast<int>(x*y));
+    vGreen=static_cast<int>(vGreen/static_cast<int>(x*y));
+    Avg=static_cast<int>((vBlue+vRed+vGreen)/3);
+    for(int i=0;i<x;++i)
     {
         if(i%static_cast<int>(num)==0&&i!=0)
             pb.setValue(pb.value()+1);
-        for(unsigned int j=0;j<y;++j)
+        for(int j=0;j<y;++j)
         {
             pix=im->pixel(i,j);
-            Red=(qRed(pix)*Avg)/vRed;
-            Green=(qGreen(pix)*Avg)/vGreen;
+            Red=std::clamp(static_cast<int>(qRed(pix)*Avg)/static_cast<int>(vRed),0,255);
+            Green=std::clamp(static_cast<int>(qGreen(pix)*Avg)/static_cast<int>(vGreen),0,255);
             pb.setValue(pb.value()+num);
-            Blue=(qBlue(pix)*Avg)/vBlue;
+            Blue=std::clamp(static_cast<int>(qBlue(pix)*Avg)/static_cast<int>(vBlue),0,255);
             if((i*j)%static_cast<int>(num))
                 pb.setValue(pb.value()+1);
             im->setPixel(i,j,qRgb(Red,Green,Blue));
