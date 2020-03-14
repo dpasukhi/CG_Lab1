@@ -167,3 +167,51 @@ QImage Convert_to_binary(const QString &path)
     im=im.convertToFormat(QImage::Format_Mono,color);
     return im;
 }
+
+QPixmap Gisogram(QLabel *Picture, QProgressBar &pb, const QString &path)
+{
+    QImage im(path);
+    const int x=im.width();
+    const int y=im.height();
+    pb.show();
+    QColor max(0,0,0,0);
+    QColor min(0,0,0,255);
+    double num=x*2/100;
+    pb.setValue(0);
+    QImage result(im);
+    for(int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
+        for(int j=0;j<y;++j)
+        {
+            QColor pix=im.pixelColor(i,j);
+            if(pix.lightness()<min.lightness())
+                min=pix;
+            if(pix.lightness()>max.lightness())
+                max=pix;
+        }
+    }
+    for(int i=0;i<x;++i)
+    {
+        if(i%static_cast<int>(num)==0&&i!=0)
+            pb.setValue(pb.value()+1);
+        for(int j=0;j<y;++j)
+        {
+            QColor pix=im.pixelColor(i,j);
+            //int ligt=static_cast<int>((static_cast<double>(pix.lightness()-min.lightness())/static_cast<double>(max.lightness()-min.lightness()))*255.);
+            int ligt=static_cast<int>((pix.lightness()/255.)*255);
+            ligt=std::clamp(ligt,0,255);
+            std::cout<<pix.lightness()<<" max"<<max.lightness()<<" min"<<min.lightness()<<"ligt"<<ligt<< " New ";
+            result.setPixel(i,j,pix.rgba());
+            std::cout<<pix.lightness()<<std::endl;
+
+        }
+    }
+
+    QPixmap Pixmap=QPixmap::fromImage(result);
+    Picture->setPixmap(Pixmap);
+    pb.setValue(100);
+    pb.hide();
+    return Pixmap;
+}

@@ -1,6 +1,6 @@
 #ifndef STEP1_H
 #define STEP1_H
-
+#include <iostream>
 #include <QLabel>
 #include <QImage>
 #include <QRgb>
@@ -16,5 +16,6 @@ inline QPixmap GrayWorld(QLabel* Picture,QProgressBar& pb, const QString& path);
 inline QPixmap MedFilter(QLabel* Picture,QProgressBar& pb, const QString& path);
 inline QPixmap Glass(QLabel* Picture,QProgressBar& pb, const QString& path);
 inline QPixmap Motion_blur(QLabel* Picture,QProgressBar& pb, const QString& path);
+inline QPixmap Gisogram(QLabel* Picture,QProgressBar& pb, const QString& path);
 inline QImage Convert_to_binary(const QString &path);
 #endif // STEP1_H

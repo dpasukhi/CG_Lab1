@@ -38,6 +38,7 @@ public slots:
     void slot_Opening();
     void slot_Closing();
     void slot_Opening_Bin();
+        void slot_Gist();
     void slot_Closing_Bin();
 private:
     Ui::MainWindow *ui;

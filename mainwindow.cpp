@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Glass,SIGNAL(triggered()),SLOT(slotGlass()));
     connect(ui->Gray_World,SIGNAL(triggered()),SLOT(slotGray_World()));
     connect(ui->Sharpness,SIGNAL(triggered()),SLOT(slotSharpness()));
-    connect(ui->Stretching,SIGNAL(triggered()),SLOT(slotStretching()));
+    connect(ui->Stretching,SIGNAL(triggered()),SLOT(slot_Gist()));
     connect(ui->Median,SIGNAL(triggered()),SLOT(slotMedian()));
     connect(ui->Motion_blur,SIGNAL(triggered()),SLOT(slotMotion_blur()));
     connect(ui->Opening_2,SIGNAL(triggered()),SLOT(slot_Opening()));
@@ -120,6 +120,12 @@ void MainWindow::slot_Opening_Bin()
 {
     if(IsCreate)
         Opening_Bin(ui->Image,path);
+}
+
+void MainWindow::slot_Gist()
+{
+    if(IsCreate)
+        Gisogram(ui->Image,*ui->progressBar,path);
 }
 
 void MainWindow::slot_Closing_Bin()
