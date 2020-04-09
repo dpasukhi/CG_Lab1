@@ -44,8 +44,8 @@ MainWindow::~MainWindow()
 void MainWindow::slotLoad()
 {
 
-   QString filePath= QFileDialog::getOpenFileName(this,tr("Open Image"),QDir::homePath(),tr("Image Files (*.png *.jpg *.bmp)"));
-   path=filePath;
+    QString filePath= QFileDialog::getOpenFileName(this,tr("Open Image"),QDir::homePath(),tr("Image Files (*.png *.jpg *.bmp)"));
+    path=filePath;
     ui->Image->setPixmap((QPixmap(filePath)));
     IsCreate=true;
 }

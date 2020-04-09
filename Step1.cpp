@@ -404,7 +404,6 @@ QPixmap Sobel(QLabel *Picture, QProgressBar &pb, const QString &path)
     double num=x/100;
     int mKernelRadius=1;
     int idX=0,idY=0;
-    int sumX,sumY;
     for(int j=0;j<y;++j)
     {
         if(j%static_cast<int>(num)==0&&j!=0)
@@ -437,5 +436,4 @@ QPixmap Sobel(QLabel *Picture, QProgressBar &pb, const QString &path)
     pb.setValue(100);
     pb.hide();
     return Pixmap;
-
 }
